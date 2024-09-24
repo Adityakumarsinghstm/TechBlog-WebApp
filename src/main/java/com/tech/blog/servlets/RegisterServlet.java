@@ -63,6 +63,7 @@ PrintWriter out=response.getWriter();
 		{
 			out.println("box not checked");
 		}else {
+			//fetching the data
 			String name=request.getParameter("user_name");
 			String email=request.getParameter("user_email");
 			String password=request.getParameter("user_password");

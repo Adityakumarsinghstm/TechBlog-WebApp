@@ -2,6 +2,8 @@
 <%@page import="java.util.List" %>
 <%@page import="com.tech.blog.helper.*" %>
 <%@page import="com.tech.blog.dao.*" %>
+
+
  
  <div class="row">
  <%  
@@ -20,7 +22,7 @@ else{
 }
 if(posts.size()==0)
 {
-	out.println("<h3 class='display-3 text-center'>No Posts in this category...</h3>");
+	out.println("<h3 class='display-3 text-center '>No Posts in this category...</h3>");
 }
 for(Post p :posts)
 {

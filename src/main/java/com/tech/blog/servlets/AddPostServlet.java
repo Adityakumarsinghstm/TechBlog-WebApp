@@ -3,6 +3,10 @@ package com.tech.blog.servlets;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -26,6 +30,7 @@ import com.tech.blog.dao.*;
 @MultipartConfig
 public class AddPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public final String directory = "D:\\servlet_workspace\\TechBlog\\src\\main\\webapp\\blog_pics";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -47,6 +52,8 @@ public class AddPostServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		
 		PrintWriter out = response.getWriter();
 		int cid = Integer.parseInt(request.getParameter("cid"));
@@ -70,9 +77,30 @@ public class AddPostServlet extends HttpServlet {
 		{
 			
 		
-			String path = request.getRealPath("/") + "blog_pics" + File.separator + part.getSubmittedFileName();
-			Helper.saveFile(part.getInputStream(), path);
-			out.println("done");
+			/*
+			 * String path = request.getRealPath("/") + "blog_pics" + File.separator +
+			 * part.getSubmittedFileName(); Helper.saveFile(part.getInputStream(), path);
+			 * out.println("done");
+			 */
+			
+			
+			 //String uploadDir = request.getServletContext().getRealPath("/") + "blog_pics" + File.separator;
+
+		        // Create the directory if it does not exist
+				/*
+				 * File dir = new File(uploadDir); if (!dir.exists()) { dir.mkdirs(); }
+				 */
+
+		        // Save the image to the specified directory
+				/* String imagePath = uploadDir + part.getSubmittedFileName(); */
+		       try {
+				Files.copy(part.getInputStream(),Paths.get(directory+File.pathSeparator+part.getSubmittedFileName()),StandardCopyOption.REPLACE_EXISTING);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
+		        out.println("done");
 		}
 		else
 		{
